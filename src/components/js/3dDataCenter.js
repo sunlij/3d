@@ -140,7 +140,7 @@ function main () {
     sceneOrtho.add( spriteBR );
     spriteBR.addEventListener( '3dclick', function ( event ) {
       console.log(event)
-      layerszObj.layers.set(0)
+      layerszObj && layerszObj.layers.set(0)
       camera.layers.set(0)
       controls.reset ()
       requestRenderIfNotRequested()
@@ -161,11 +161,11 @@ function main () {
     var width = canvas.clientWidth / 2;
     var height = canvas.clientHeight / 2;
 
-    spriteTL.position.set( - width, height, 1 ); // top left
-    spriteTR.position.set( width, height, 1 ); // top right
-    spriteBL.position.set( - width, - height, 1 ); // bottom left
-    spriteBR.position.set( width, - height, 1 ); // bottom right
-    spriteC.position.set( 0, 0, 1 ); // center
+    spriteTL && spriteTL.position.set( - width, height, 1 ); // top left
+    spriteTR && spriteTR.position.set( width, height, 1 ); // top right
+    spriteBL && spriteBL.position.set( - width, - height, 1 ); // bottom left
+    spriteBR && spriteBR.position.set( width, - height, 1 ); // bottom right
+    spriteC && spriteC.position.set( 0, 0, 1 ); // center
 
   }
 
@@ -254,7 +254,7 @@ function main () {
       dispatchAll(pickedUIObject, pickedUIObject)
       return
     }
-    if (camera.layers.mask !== pickedObject.layers.mask) {
+    if (!pickedObject || camera.layers.mask !== pickedObject.layers.mask) {
       return
     }
     if (pickedObject) {
@@ -423,11 +423,11 @@ function main () {
   let wall_2 = createWall3({length: 1200}, {})
   scene.add(wall_2)
   wall_2.position.z = 390
-  let wall_3 = createWall2({length: 780}, {})
+  let wall_3 = createWall2({length: 760}, {})
   scene.add(wall_3)
   wall_3.position.x = 590
   wall_3.rotation.y = Math.PI * -.5;
-  let wall_4 = createWall2({length: 780}, {})
+  let wall_4 = createWall2({length: 760}, {})
   scene.add(wall_4)
   wall_4.position.x = -590
   wall_4.rotation.y = Math.PI * -.5;
@@ -701,6 +701,13 @@ function main () {
       const canvas = renderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
+
+      cameraOrtho.left = - canvas.clientWidth / 2;
+      cameraOrtho.right = canvas.clientWidth / 2;
+      cameraOrtho.top = canvas.clientHeight / 2;
+      cameraOrtho.bottom = - canvas.clientHeight / 2;
+      cameraOrtho.updateProjectionMatrix();
+      updateHUDSprites()
     }
 
     if (tweenManager.update()) {
