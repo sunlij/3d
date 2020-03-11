@@ -392,6 +392,7 @@ function main () {
 
   return {
     canvas,
+    renderer,
     camera,
     scene,
     controls,

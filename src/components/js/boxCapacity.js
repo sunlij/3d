@@ -28,8 +28,6 @@ function main ({
     for (var i = 0;i < 9; i++ ) {
 
       let boxA = makeBoxCapacity('A0'+(i+1) , 300, 240-i*60,randInt(200))
-      boxA.name = 'A0'+(i+1)
-
       let boxB = makeBoxCapacity('B0'+(i+1) , 210, 240-i*60,randInt(200))
 
       let boxC = makeBoxCapacity('C0'+(i+1) , 0, 240-i*60,randInt(200))

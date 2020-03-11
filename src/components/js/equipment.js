@@ -74,7 +74,7 @@ function main ({
   monitorScreen.position.set(460, 240, -378.5)
 
   const boxCallback = (event) => {
-    console.log(event)
+    // console.log(event)
     let obj = event.obj
     if (obj.layers.mask > 1 && obj.layers.mask < 4 ) {
       // let cabinetDoor = obj.getObjectByName('cabinetDoor')
@@ -115,7 +115,7 @@ function main ({
         spriteTR.add(dialog)
 
         let device = makeDevice()
-        device.position.set(0, 30, 0)
+        device.position.set(0, randInt(-80, 80), 0)
         device.layers.set(1)
         obj.addDevice(device)
       })
@@ -191,26 +191,25 @@ function main ({
 
   // 机柜
   function makeBox (name = '', x = 0, z = 0, rotateY = 0, callback) {
-    const box = new THREE.Group();
-    box.position.set(x, 100, z)
-    box.rotateY(rotateY)
-  
+    const goup = new THREE.Group();
+    goup.position.set(x, 100, z)
+    goup.rotateY(rotateY)
+
     const cabinet = makeCabinet(name)
     const cabinetGroup = new CabinetGroup()
     cabinetGroup.add(...cabinet.children)
+
     if (callback) {
       cabinetGroup.addEventListener( '3dclick', callback)
     }
-    box.add(cabinetGroup)
-
-    return box
+    goup.add(cabinetGroup)
+    
+    return goup
   }
   
   for (var i = 0;i < 9; i++ ) {
 
     let boxA = makeBox('A0'+(i+1) , 300, 240-i*60,Math.PI * 0.5, boxCallback)
-    // boxA.name = 'A0'+(i+1)
-
     let boxB = makeBox('B0'+(i+1) , 210, 240-i*60,Math.PI * -0.5, boxCallback)
 
     let boxC = makeBox('C0'+(i+1) , 0, 240-i*60,Math.PI * 0.5, boxCallback)
@@ -218,7 +217,7 @@ function main ({
 
     let boxE = makeBox('E0'+(i+1) , -300, 240-i*60,Math.PI * 0.5, boxCallback)
     let boxF = makeBox('F0'+(i+1) , -390, 240-i*60,Math.PI * -0.5, boxCallback)
-    boxGroup.add(boxA, boxB, boxC, boxD, boxE, boxF)  
+    boxGroup.add(boxA, boxB, boxC, boxD, boxE, boxF)
   }
   boxGroup.name = 'boxGroup'
   scene.add(boxGroup)

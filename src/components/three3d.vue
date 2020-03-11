@@ -32,18 +32,7 @@ export default {
       showHtml: false,
       idcBarn: '',
       idcCabinet: '',
-      idcDevice: '',
-      threeInfo:{
-        canvas: '',
-        camera: '',
-        scene: '',
-        controls: '',
-        uiCamera: '',
-        uiScene: '',
-        renderFunction: '',
-        tweenManager: '',
-        resourceTracker: ''
-      }
+      idcDevice: ''
     }
   },
   created () {
@@ -52,6 +41,18 @@ export default {
   mounted () {
     if ( WEBGL.isWebGLAvailable() ) {
       // Main();
+      // threeInfo:{
+      //   canvas: '',
+      //   renderer: '',
+      //   camera: '',
+      //   scene: '',
+      //   controls: '',
+      //   uiCamera: '',
+      //   uiScene: '',
+      //   renderFunction: '',
+      //   tweenManager: '',
+      //   resourceTracker: ''
+      // }
       this.threeInfo = Init()
       this.uiInit()
       this.getBarn()
@@ -76,6 +77,13 @@ export default {
     },
     toggleHtml () {
       this.showHtml = !this.showHtml
+    },
+    clearRenderer(){
+      this.threeInfo.renderer.dispose();
+      this.threeInfo.renderer.forceContextLoss();
+      // this.threeInfo.renderer.context = null;
+      this.threeInfo.renderer.domElement = null;
+      this.threeInfo.renderer = null;
     },
     getBarn () {
       return GetData('idcBarn').then((data) => {

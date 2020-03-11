@@ -4,6 +4,7 @@ import ClosePng from '../img/close.png';
 
 function main ({
   // canvas,
+  renderer,
   // camera,
   // scene,
   controls,
@@ -25,6 +26,7 @@ function main ({
   button1.position.set(10, -50, 1)
   button1.addEventListener( '3dclick', function ( event ) {
     console.log(event)
+    vueCom.clearRenderer()
     window.location.reload()
   })
   let button2 = makeSprite('button', {text: 'DOM'})
@@ -62,7 +64,15 @@ function main ({
     console.log(event)
     vueCom.showBoxCapacity()
   })
-  spriteTL.add(button1, button2, button3)
+
+  let button4 = makeSprite('button', {text: 'info'})
+  button4.center.set(0.0, 1.0)
+  button4.position.set(10, -200, 1)
+  button4.addEventListener( '3dclick', function ( event ) {
+    console.log(event)
+    console.log(renderer.info)
+  })
+  spriteTL.add(button1, button2, button3, button4)
 
   textureLoader.load( ClosePng, function (texture) {
     var material = new THREE.SpriteMaterial( { map: texture } );
@@ -100,7 +110,13 @@ function main ({
       controls.object.layers.set(0)
       controls.reset()
       spriteTL.visible = true
-      spriteTR.remove(spriteTR.getObjectByName('dialog'))
+      let dialog = spriteTR.getObjectByName('dialog')
+      if (dialog) {
+        spriteTR.remove(dialog)
+        dialog.material.dispose()
+        dialog.material.map.dispose()
+      }
+      
       renderFunction()
     })
 
