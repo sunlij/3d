@@ -50,8 +50,7 @@ export default {
       //   uiCamera: '',
       //   uiScene: '',
       //   renderFunction: '',
-      //   tweenManager: '',
-      //   resourceTracker: ''
+      //   tweenManager: ''
       // }
       this.threeInfo = Init()
       this.uiInit()

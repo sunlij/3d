@@ -1,5 +1,8 @@
 import * as THREE from 'three'
 import { makeBoxCapacity } from './3dModel.js'
+import { ResourceTracker } from './resourceTracker.js'
+
+const resourceTracker = new ResourceTracker()
 
 function main ({
   scene,
@@ -7,8 +10,7 @@ function main ({
   // sceneOrtho,
   renderFunction,
   // tweenManager,
-  // commonObj,
-  resourceTracker
+  // commonObj
 }) {
   let boxGroup = scene.getObjectByName('boxGroup')
   const track = resourceTracker.track.bind(resourceTracker);

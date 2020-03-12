@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { makeSprite } from './2dCanvas.js'
 import ClosePng from '../img/close.png';
+import { commonTracker } from './resourceTracker.js'
 
 function main ({
   // canvas,
@@ -112,9 +113,10 @@ function main ({
       spriteTL.visible = true
       let dialog = spriteTR.getObjectByName('dialog')
       if (dialog) {
-        spriteTR.remove(dialog)
-        dialog.material.dispose()
-        dialog.material.map.dispose()
+        commonTracker.deviceDetail.dispose()
+        // spriteTR.remove(dialog)
+        // dialog.material.dispose()
+        // dialog.material.map.dispose()
       }
       
       renderFunction()

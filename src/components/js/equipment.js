@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import {createScreen, makeCabinet, makeDevice} from './3dModel.js'
 import { makeSprite } from './2dCanvas.js'
 import makeLabel from './billboards.js'
+import { ResourceTracker, commonTracker } from './resourceTracker.js'
 
 function main ({
   scene,
@@ -9,8 +10,7 @@ function main ({
   sceneOrtho,
   renderFunction,
   tweenManager,
-  commonObj,
-  // resourceTracker
+  commonObj
 }, vueCom) {
   // 电视屏幕
   
@@ -113,6 +113,10 @@ function main ({
         dialog.position.set(-50, -50, 1)
         dialog.name = 'dialog'
         spriteTR.add(dialog)
+
+        var resourceTracker =  new ResourceTracker()
+        resourceTracker.track(dialog)
+        commonTracker.deviceDetail = resourceTracker
 
         let device = makeDevice()
         device.position.set(0, randInt(-80, 80), 0)
