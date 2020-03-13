@@ -80,7 +80,7 @@ class TweenManger {
 function main () {
   // canvas, renderer, camera, scene
   const canvas = document.querySelector('#d');
-  const renderer = new THREE.WebGLRenderer({canvas});
+  const renderer = new THREE.WebGLRenderer({canvas, antialias: true });
   renderer.autoClear = false; // To allow render overlay on top of another
 
   const fov = 45;
