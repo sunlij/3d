@@ -195,9 +195,9 @@ function main ({
 
   // 机柜
   function makeBox (name = '', x = 0, z = 0, rotateY = 0, callback) {
-    const goup = new THREE.Group();
-    goup.position.set(x, 100, z)
-    goup.rotateY(rotateY)
+    const group = new THREE.Group();
+    group.position.set(x, 100, z)
+    group.rotateY(rotateY)
 
     const cabinet = makeCabinet(name)
     const cabinetGroup = new CabinetGroup()
@@ -206,9 +206,11 @@ function main ({
     if (callback) {
       cabinetGroup.addEventListener( '3dclick', callback)
     }
-    goup.add(cabinetGroup)
+    group.add(cabinetGroup)
     
-    return goup
+    // const line = makeLine()
+    // group.add(line)
+    return group
   }
   
   for (var i = 0;i < 9; i++ ) {

@@ -91,7 +91,7 @@ function main () {
   camera.position.set(0, 800, 1000)
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color('green');
+  scene.background = new THREE.Color('#DEFEFF');
 
   const canvas_width = canvas.clientWidth;
   const canvas_height = canvas.clientHeight;

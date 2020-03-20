@@ -354,4 +354,36 @@ const makeDevice = (function () {
   }
 })()
 
-export { createFloor, createWall, createWall2, createWall3, createDoor, createScreen, makeCabinet, makeBoxCapacity, makeDevice }
+const makeLine = (function () {
+  var mesh = null
+  return function () {
+    if (!mesh) {
+      var curve = new THREE.CurvePath()
+      curve.add(new THREE.LineCurve3(
+        new THREE.Vector3( 0, 0, 0 ),
+        new THREE.Vector3( 0, 0, -10 ),
+      ))
+      curve.add(new THREE.LineCurve3(
+        new THREE.Vector3( 0, 0, -10 ),
+        new THREE.Vector3( 0, -100, -10 ),
+      ))
+
+      const tubularSegments = 100;
+      const radius = .5;
+      const radialSegments = 8;
+      const closed = false;
+      const geometry = new THREE.TubeBufferGeometry(curve, tubularSegments, radius, radialSegments, closed);
+      
+      var material = new THREE.MeshPhongMaterial( { color : 0x42474c } );
+      
+      // Create the final object to add to the scene
+      mesh = new THREE.Mesh( geometry, material );
+      mesh.position.set(0, 0, -30)
+      return mesh
+    } else {
+      return mesh.clone()
+    }
+  }
+})()
+
+export { createFloor, createWall, createWall2, createWall3, createDoor, createScreen, makeCabinet, makeBoxCapacity, makeDevice, makeLine}
