@@ -169,6 +169,29 @@ function main () {
     startPosition.y = pos.y;
   }
 
+  class ClickEvent {
+    constructor({originalTarget, currentTarget}) {
+      this.type = 'click'
+      this.cancelBubble = false
+      this.cancelable = false
+      this.originalTarget = originalTarget || null
+      this.currentTarget = currentTarget || null
+    }
+    preventDefault() {
+      this.cancelable = true
+    }
+    stopPropagation () {
+      this.cancelBubble = true
+    }
+  }
+
+  function dispatchAll(currentTarget, originalTarget) {
+    if(currentTarget.parent) {
+      currentTarget.parent.dispatchEvent( new ClickEvent({currentTarget: currentTarget.parent, originalTarget: originalTarget }))
+      dispatchAll(currentTarget.parent, originalTarget)
+    }
+  }
+
   window.addEventListener('mousedown', recordStartTimeAndPosition)
   window.addEventListener('mouseup', function(event){
     // if it's been a moment since the user started
@@ -192,23 +215,23 @@ function main () {
     let pickedObject = pickHelper.pick(pickPosition, scene, camera)
     let pickedUIObject = pickHelper.pick(pickPosition, sceneOrtho, cameraOrtho)
 
-    function dispatchAll(pickedObject, obj) {
-      if(obj.parent && obj.parent !== null) {
-        obj.parent.dispatchEvent( { type: '3dclick', obj: obj.parent, pickedObject: pickedObject })
-        dispatchAll(pickedObject, obj.parent)
-      }
-    }
     if (pickedUIObject) {
-      pickedUIObject.dispatchEvent( { type: '3dclick', obj: pickedUIObject, pickedObject: pickedUIObject })
-      dispatchAll(pickedUIObject, pickedUIObject)
+      let uiClickEvent = new ClickEvent({currentTarget: pickedUIObject, originalTarget: pickedUIObject })
+      pickedUIObject.dispatchEvent(uiClickEvent)
+      if (!uiClickEvent.cancelBubble) {
+        dispatchAll(pickedUIObject, pickedUIObject)
+      }
       return
     }
     // if (!pickedObject || !camera.layers.test(pickedObject.layers)) {
     //   return
     // }
     if (pickedObject) {
-      pickedObject.dispatchEvent( { type: '3dclick', obj: pickedObject, pickedObject: pickedObject })
-      dispatchAll(pickedObject, pickedObject)
+      let clickEvent = new ClickEvent({currentTarget: pickedObject, originalTarget: pickedObject })
+      pickedObject.dispatchEvent(clickEvent)
+      if (!clickEvent.cancelBubble) {
+        dispatchAll(pickedObject, pickedObject)
+      }
     }
   })
 

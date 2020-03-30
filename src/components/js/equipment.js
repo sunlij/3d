@@ -52,9 +52,8 @@ function main ({
 
   let monitorScreen = createScreen(texture)
   scene.add(monitorScreen)
-  monitorScreen.addEventListener( '3dclick', function ( event ) {
+  monitorScreen.addEventListener( 'click', function ( event ) {
     console.log(event)
-
     const spriteMaterial = new THREE.SpriteMaterial({
       map: texture,
       transparent: true,
@@ -63,7 +62,6 @@ function main ({
     sprite.scale.x = ctx.canvas.width;
     sprite.scale.y = ctx.canvas.height;
 
-    // let obj = event.obj.clone()
     let obj = sprite
     obj.position.set(0, 0, 0)
     obj.name = 'spriteC'
@@ -75,10 +73,10 @@ function main ({
 
   const boxCallback = (event) => {
     // console.log(event)
-    let obj = event.obj
+    let obj = event.currentTarget
     if (obj.layers.mask > 1 && obj.layers.mask < 4 ) {
       // let cabinetDoor = obj.getObjectByName('cabinetDoor')
-      if (event.pickedObject.name === 'cabinetDoor') {
+      if (event.originalTarget.name === 'cabinetDoor') {
         obj.toggle()
       }
     } else {
@@ -204,7 +202,7 @@ function main ({
     cabinetGroup.add(...cabinet.children)
 
     if (callback) {
-      cabinetGroup.addEventListener( '3dclick', callback)
+      cabinetGroup.addEventListener( 'click', callback)
     }
     group.add(cabinetGroup)
     
@@ -229,8 +227,8 @@ function main ({
   scene.add(boxGroup)
   // 提示框
   let label = makeLabel({x: 0, y: 1}, 50, 16, 'warning!!!')
-  label.addEventListener( '3dclick', function ( event ) {
-    let a = event.pickedObject.clone()
+  label.addEventListener( 'click', function ( event ) {
+    let a = event.currentTarget.clone()
     a.position.set(0, 0, 0)
     a.name = 'spriteC'
     sceneOrtho.remove(sceneOrtho.getObjectByName('spriteC'))

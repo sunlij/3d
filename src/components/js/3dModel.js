@@ -185,7 +185,7 @@ const makeBoxCapacity = (function () {
   var line = null,
       materials = []
   
-  return function (name, x = 0, z = 0, scale = 1, callback) {
+  return function (name, x = 0, z = 0, scale = 1) {
     const group = new THREE.Group()
     if (!line) {
       const geometry = new THREE.BoxGeometry(60, 200, 60);
@@ -198,10 +198,6 @@ const makeBoxCapacity = (function () {
 
     group.position.set(x, 100, z)
   
-    if (callback) {
-      group.addEventListener( '3dclick', callback)
-    }
-
     if (materials.length < 1) {
       [0x4caf50, 0x009688, 0xffc107, 0xf44336].forEach(item => {
         materials.push(new THREE.MeshBasicMaterial({

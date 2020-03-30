@@ -25,7 +25,7 @@ function main ({
   let button1 = makeSprite('button', {text: '刷新'})
   button1.center.set(0.0, 1.0)
   button1.position.set(10, -50, 1)
-  button1.addEventListener( '3dclick', function ( event ) {
+  button1.addEventListener( 'click', function ( event ) {
     console.log(event)
     vueCom.clearRenderer()
     window.location.reload()
@@ -33,7 +33,7 @@ function main ({
   let button2 = makeSprite('button', {text: 'DOM'})
   button2.center.set(0.0, 1.0)
   button2.position.set(10, -100, 1)
-  button2.addEventListener( '3dclick', function ( event ) {
+  button2.addEventListener( 'click', function ( event ) {
     console.log(event)
     vueCom.toggleHtml()
     // const labelContainerElem = document.querySelector('#labels');
@@ -61,7 +61,7 @@ function main ({
   let button3 = makeSprite('button', {text: '容量'})
   button3.center.set(0.0, 1.0)
   button3.position.set(10, -150, 1)
-  button3.addEventListener( '3dclick', function ( event ) {
+  button3.addEventListener( 'click', function ( event ) {
     console.log(event)
     vueCom.showBoxCapacity()
   })
@@ -69,7 +69,7 @@ function main ({
   let button4 = makeSprite('button', {text: 'info'})
   button4.center.set(0.0, 1.0)
   button4.position.set(10, -200, 1)
-  button4.addEventListener( '3dclick', function ( event ) {
+  button4.addEventListener( 'click', function ( event ) {
     console.log(event)
     console.log(renderer.info)
   })
@@ -91,13 +91,13 @@ function main ({
     sprite1.scale.set( width, height, 1 );
     spriteBR.add(sprite1)
 
-    sprite.addEventListener( '3dclick', function ( event ) {
+    sprite.addEventListener( 'click', function ( event ) {
       console.log(event)
       sceneOrtho.remove(sceneOrtho.getObjectByName('spriteC'))
       renderFunction()
     })
 
-    sprite1.addEventListener( '3dclick', function ( event ) {
+    sprite1.addEventListener( 'click', function ( event ) {
       console.log(event)
       if (commonObj.layerszObj) {
         commonObj.layerszObj.close()

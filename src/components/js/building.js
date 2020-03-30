@@ -61,9 +61,9 @@ function main({scene, tweenManager, renderFunction}) {
   const doorModel = createDoor()
   doorGroup.add(...doorModel.children)
 
-  doorGroup.addEventListener( '3dclick', function ( event ) {
+  doorGroup.addEventListener( 'click', function ( event ) {
     console.log('-----------')
-    let obj = event.obj
+    let obj = event.currentTarget
     console.log(obj.doorState)
     obj.toggle()
   })

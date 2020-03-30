@@ -32,8 +32,9 @@ function makeSprite(name, option) {
 
   const spriteMaterial = new THREE.SpriteMaterial({
     map: texture,
-    transparent: true,
-  });
+		transparent: true,
+		// opacity: 0.8
+	});
   const sprite = new THREE.Sprite(spriteMaterial);
   sprite.scale.x = canvas.width;
   sprite.scale.y = canvas.height;
@@ -49,7 +50,8 @@ function makeButton (ctx, option) {
 			width = option.width,
 			color = getColor(option.color),
 			margin = 5,
-			radius = 5
+			radius = 5,
+			ghost = true
 
 	ctx.font = `${fontSize}px bold sans-serif`
 	const textWidth = ctx.measureText(text).width
@@ -64,12 +66,18 @@ function makeButton (ctx, option) {
 	ctx.globalAlpha = 0.8
 	roundedRect(ctx, 2, 2, ctx.canvas.width - 4, ctx.canvas.height - 4, radius)
 	ctx.fillStyle = color
-	ctx.globalAlpha = 0.1
-	ctx.fill()
-	ctx.globalAlpha = 1
-	ctx.fillStyle = color
+	if (ghost) {
+		ctx.globalAlpha = 0.1
+		ctx.fill()
+		ctx.globalAlpha = 1
+		ctx.fillStyle = color
+	} else {
+		ctx.globalAlpha = 1
+		ctx.fill()
+		ctx.fillStyle = 'white'
+	}
 	ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
-  ctx.fillText(text, 0, 0);
+	ctx.fillText(text, 0, 0);
 
   return ctx.canvas
 }
