@@ -110,15 +110,25 @@ function main () {
   scene.add(ambientLight);
   ambientLight.layers.enable(1)
   // 平行光
-  var directionalLight = new THREE.DirectionalLight(0xffffff);
-  directionalLight.position.set(1, 0.75, 0.5).normalize();
+  var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+  directionalLight.position.set(1, 0.5, 1).normalize();
   scene.add(directionalLight);
   directionalLight.layers.enable(1)
+  // 平行光 - 补光
+  var directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.2);
+  directionalLight1.position.set(1, -0.5, -1).normalize();
+  scene.add(directionalLight1);
+  directionalLight1.layers.enable(1)
   // 平行光 2
-  // var directionalLight2 = new THREE.DirectionalLight(0xffffff);
-  // directionalLight2.position.set(-1, 0.75, 0.5).normalize();
-  // scene.add(directionalLight2);
-  // directionalLight2.layers.set(1)
+  var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
+  directionalLight2.position.set(-1, 0.5, -1).normalize();
+  scene.add(directionalLight2);
+  directionalLight2.layers.set(1)
+  // 平行光2 - 补光
+  var directionalLight4 = new THREE.DirectionalLight(0xffffff, 0.1);
+  directionalLight4.position.set(-1, -0.5, 1).normalize();
+  scene.add(directionalLight4);
+  directionalLight4.layers.enable(1)
 
   // 帧数监测
   const container = document.getElementById( 'container' )
