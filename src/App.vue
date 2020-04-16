@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Three3d />
+    <Gltf />
   </div>
 </template>
 
 <script>
 import Three3d from './components/three3d.vue'
+import Gltf from './components/gltf.vue'
 
 export default {
   name: 'App',
   components: {
-    Three3d
+    Three3d,
+    Gltf
   }
 }
 </script>
